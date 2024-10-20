@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/orangepi/rknn-cpp-Multithreading-main/build/build_linux
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/rknn_yolov5_demo.dir/all
+all: CMakeFiles/main.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/rknn_yolov5_demo.dir/clean
+clean: CMakeFiles/main.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/rknn_yolov5_demo.dir
+# Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
-CMakeFiles/rknn_yolov5_demo.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles --progress-num=1,2,3,4,5 "Built target rknn_yolov5_demo"
-.PHONY : CMakeFiles/rknn_yolov5_demo.dir/all
+CMakeFiles/main.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles --progress-num=1,2,3,4,5 "Built target main"
+.PHONY : CMakeFiles/main.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/rknn_yolov5_demo.dir/rule: cmake_check_build_system
+CMakeFiles/main.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles 5
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/rknn_yolov5_demo.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles 0
-.PHONY : CMakeFiles/rknn_yolov5_demo.dir/rule
+.PHONY : CMakeFiles/main.dir/rule
 
 # Convenience name for target.
-rknn_yolov5_demo: CMakeFiles/rknn_yolov5_demo.dir/rule
-.PHONY : rknn_yolov5_demo
+main: CMakeFiles/main.dir/rule
+.PHONY : main
 
 # clean rule for target.
-CMakeFiles/rknn_yolov5_demo.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/clean
-.PHONY : CMakeFiles/rknn_yolov5_demo.dir/clean
+CMakeFiles/main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
+.PHONY : CMakeFiles/main.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

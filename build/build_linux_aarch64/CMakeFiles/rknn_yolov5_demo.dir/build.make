@@ -69,19 +69,19 @@ include CMakeFiles/rknn_yolov5_demo.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/rknn_yolov5_demo.dir/flags.make
 
-CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o: CMakeFiles/rknn_yolov5_demo.dir/flags.make
-CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o: ../../src/new.cc
-CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o: CMakeFiles/rknn_yolov5_demo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o"
-	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o -MF CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o.d -o CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o -c /home/orangepi/rknn-cpp-Multithreading-main/src/new.cc
+CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o: CMakeFiles/rknn_yolov5_demo.dir/flags.make
+CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o: ../../src/edge.cc
+CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o: CMakeFiles/rknn_yolov5_demo.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o -MF CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o.d -o CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o -c /home/orangepi/rknn-cpp-Multithreading-main/src/edge.cc
 
-CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.i"
-	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/orangepi/rknn-cpp-Multithreading-main/src/new.cc > CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.i
+CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/orangepi/rknn-cpp-Multithreading-main/src/edge.cc > CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.i
 
-CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.s"
-	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/orangepi/rknn-cpp-Multithreading-main/src/new.cc -o CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.s
+CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/orangepi/rknn-cpp-Multithreading-main/src/edge.cc -o CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.s
 
 CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.o: CMakeFiles/rknn_yolov5_demo.dir/flags.make
 CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.o: ../../src/postprocess.cc
@@ -127,7 +127,7 @@ CMakeFiles/rknn_yolov5_demo.dir/src/rkYolov5s.cc.s: cmake_force
 
 # Object files for target rknn_yolov5_demo
 rknn_yolov5_demo_OBJECTS = \
-"CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o" \
+"CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o" \
 "CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.o" \
 "CMakeFiles/rknn_yolov5_demo.dir/src/preprocess.cc.o" \
 "CMakeFiles/rknn_yolov5_demo.dir/src/rkYolov5s.cc.o"
@@ -135,7 +135,7 @@ rknn_yolov5_demo_OBJECTS = \
 # External object files for target rknn_yolov5_demo
 rknn_yolov5_demo_EXTERNAL_OBJECTS =
 
-rknn_yolov5_demo: CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o
+rknn_yolov5_demo: CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o
 rknn_yolov5_demo: CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.o
 rknn_yolov5_demo: CMakeFiles/rknn_yolov5_demo.dir/src/preprocess.cc.o
 rknn_yolov5_demo: CMakeFiles/rknn_yolov5_demo.dir/src/rkYolov5s.cc.o

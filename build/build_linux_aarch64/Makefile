@@ -162,48 +162,48 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named rknn_yolov5_demo
+# Target rules for targets named main
 
 # Build rule for target.
-rknn_yolov5_demo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rknn_yolov5_demo
-.PHONY : rknn_yolov5_demo
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-rknn_yolov5_demo/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/build
-.PHONY : rknn_yolov5_demo/fast
+main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
 
-src/new.o: src/new.cc.o
-.PHONY : src/new.o
+src/main.o: src/main.cc.o
+.PHONY : src/main.o
 
 # target to build an object file
-src/new.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o
-.PHONY : src/new.cc.o
+src/main.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cc.o
+.PHONY : src/main.cc.o
 
-src/new.i: src/new.cc.i
-.PHONY : src/new.i
+src/main.i: src/main.cc.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-src/new.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.i
-.PHONY : src/new.cc.i
+src/main.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cc.i
+.PHONY : src/main.cc.i
 
-src/new.s: src/new.cc.s
-.PHONY : src/new.s
+src/main.s: src/main.cc.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-src/new.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.s
-.PHONY : src/new.cc.s
+src/main.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cc.s
+.PHONY : src/main.cc.s
 
 src/postprocess.o: src/postprocess.cc.o
 .PHONY : src/postprocess.o
 
 # target to build an object file
 src/postprocess.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/postprocess.cc.o
 .PHONY : src/postprocess.cc.o
 
 src/postprocess.i: src/postprocess.cc.i
@@ -211,7 +211,7 @@ src/postprocess.i: src/postprocess.cc.i
 
 # target to preprocess a source file
 src/postprocess.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/postprocess.cc.i
 .PHONY : src/postprocess.cc.i
 
 src/postprocess.s: src/postprocess.cc.s
@@ -219,7 +219,7 @@ src/postprocess.s: src/postprocess.cc.s
 
 # target to generate assembly for a file
 src/postprocess.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/postprocess.cc.s
 .PHONY : src/postprocess.cc.s
 
 src/preprocess.o: src/preprocess.cc.o
@@ -227,7 +227,7 @@ src/preprocess.o: src/preprocess.cc.o
 
 # target to build an object file
 src/preprocess.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/preprocess.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/preprocess.cc.o
 .PHONY : src/preprocess.cc.o
 
 src/preprocess.i: src/preprocess.cc.i
@@ -235,7 +235,7 @@ src/preprocess.i: src/preprocess.cc.i
 
 # target to preprocess a source file
 src/preprocess.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/preprocess.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/preprocess.cc.i
 .PHONY : src/preprocess.cc.i
 
 src/preprocess.s: src/preprocess.cc.s
@@ -243,7 +243,7 @@ src/preprocess.s: src/preprocess.cc.s
 
 # target to generate assembly for a file
 src/preprocess.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/preprocess.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/preprocess.cc.s
 .PHONY : src/preprocess.cc.s
 
 src/rkYolov5s.o: src/rkYolov5s.cc.o
@@ -251,7 +251,7 @@ src/rkYolov5s.o: src/rkYolov5s.cc.o
 
 # target to build an object file
 src/rkYolov5s.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/rkYolov5s.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/rkYolov5s.cc.o
 .PHONY : src/rkYolov5s.cc.o
 
 src/rkYolov5s.i: src/rkYolov5s.cc.i
@@ -259,7 +259,7 @@ src/rkYolov5s.i: src/rkYolov5s.cc.i
 
 # target to preprocess a source file
 src/rkYolov5s.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/rkYolov5s.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/rkYolov5s.cc.i
 .PHONY : src/rkYolov5s.cc.i
 
 src/rkYolov5s.s: src/rkYolov5s.cc.s
@@ -267,7 +267,7 @@ src/rkYolov5s.s: src/rkYolov5s.cc.s
 
 # target to generate assembly for a file
 src/rkYolov5s.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rknn_yolov5_demo.dir/build.make CMakeFiles/rknn_yolov5_demo.dir/src/rkYolov5s.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/rkYolov5s.cc.s
 .PHONY : src/rkYolov5s.cc.s
 
 # Help Target
@@ -282,10 +282,10 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... rknn_yolov5_demo"
-	@echo "... src/new.o"
-	@echo "... src/new.i"
-	@echo "... src/new.s"
+	@echo "... main"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/postprocess.o"
 	@echo "... src/postprocess.i"
 	@echo "... src/postprocess.s"

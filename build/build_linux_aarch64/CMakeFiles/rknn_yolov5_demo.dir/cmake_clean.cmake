@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o"
-  "CMakeFiles/rknn_yolov5_demo.dir/src/new.cc.o.d"
+  "CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o"
+  "CMakeFiles/rknn_yolov5_demo.dir/src/edge.cc.o.d"
   "CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.o"
   "CMakeFiles/rknn_yolov5_demo.dir/src/postprocess.cc.o.d"
   "CMakeFiles/rknn_yolov5_demo.dir/src/preprocess.cc.o"

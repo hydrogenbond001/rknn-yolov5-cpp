@@ -293,8 +293,7 @@ int main(int argc, char **argv)
             out_scales.push_back(output_attrs[i].scale);
             out_zps.push_back(output_attrs[i].zp);
         }
-        post_process((int8_t *)outputs[0].buf, (int8_t *)outputs[1].buf, (int8_t *)outputs[2].buf, height, width,
-                     box_conf_threshold, nms_threshold, pads, min_scale, min_scale, out_zps, out_scales, &detect_result_group);
+        post_process((int8_t *)outputs[0].buf, (int8_t *)outputs[1].buf, (int8_t *)outputs[2].buf, height, width,box_conf_threshold, nms_threshold, pads, min_scale, min_scale, out_zps, out_scales, &detect_result_group);
 
         // Draw results
         for (int i = 0; i < detect_result_group.count; i++)
@@ -302,6 +301,7 @@ int main(int argc, char **argv)
             detect_result_t *det_result = &(detect_result_group.results[i]);
             char text[256];
             sprintf(text, "%s %.1f%%", det_result->name, det_result->prop * 100);
+            printf("Detected Object: %s\n", text);
             int x1 = det_result->box.left;
             int y1 = det_result->box.top;
             int x2 = det_result->box.right;
@@ -310,16 +310,25 @@ int main(int argc, char **argv)
             y=(y1+y2)/2;
             cv::rectangle(img, cv::Point(x1, y1), cv::Point(x2, y2), cv::Scalar(0, 0, 255), 3);
             cv::putText(img, text, cv::Point(x1, y1 + 12), cv::FONT_HERSHEY_SIMPLEX, 0.4, cv::Scalar(255, 255, 255));
+            // 打印矩形框坐标和中心坐标
+		   printf("Bounding Box: left=%d, top=%d, right=%d, bottom=%d\n", x1, y1, x2, y2);
+		   printf("Center: x=%d, y=%d\n\n", x, y);
+            	//serialPuts (fd,text);//标签和概率
+			//serialPuts(fd,",");
+			serialPuts(fd,"#");
+			serialPutNumber (fd,x);
+			serialPuts(fd,",");
+			serialPutNumber (fd,y);
+			serialPuts(fd,";");
+			
         }
         //show position
 
-        serialPutNumber (fd,x);
-        serialPuts(fd,"    ");
-        serialPutNumber (fd,y);
-        serialPuts(fd,"\r\n");
+        serialPuts(fd,"*");//over flag
+	   serialPuts(fd,"\r\n");
         // Show image
         cv::cvtColor(img, img, cv::COLOR_RGB2BGR);
-        cv::imshow("Detection", img);
+        //cv::imshow("Detection", img);
 
         // Release RKNN outputs
         rknn_outputs_release(ctx, io_num.n_output, outputs);
