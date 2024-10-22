@@ -1,4 +1,5 @@
 /home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles/main.dir
+/home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles/line.dir
 /home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles/edit_cache.dir
 /home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles/rebuild_cache.dir
 /home/orangepi/rknn-cpp-Multithreading-main/build/build_linux_aarch64/CMakeFiles/list_install_components.dir

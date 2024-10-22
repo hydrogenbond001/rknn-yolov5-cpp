@@ -72,7 +72,7 @@ void send_slope_data(std::vector<cv::Vec4i> lines, cv::Mat &roi) {
 
         // 计算斜率
         if (x2 - x1 != 0) {
-            // 计算斜率（乘以10调整到较大的范围）
+            // 计算斜率（乘以100调整到较大的范围）
             float slope = 10 * (180.0 / CV_PI) * (10.0 * (y2 - y1) / (x2 - x1));
 
             // 计算中点
@@ -82,9 +82,9 @@ void send_slope_data(std::vector<cv::Vec4i> lines, cv::Mat &roi) {
             // 打印中点和斜率信息
             printf("%d %d %.0f\n", midpoint_x, midpoint_y, slope);
 
-            // 发送起始字节
-            unsigned char start_byte = 0x03;
-            write(fd, &start_byte, 1);
+            // 发送起始字节K
+            unsigned char start_byte7 = 0x07;
+            write(fd, &start_byte7, 1);
 
             // 发送斜率数据
             char slope_buffer[32];
@@ -92,8 +92,21 @@ void send_slope_data(std::vector<cv::Vec4i> lines, cv::Mat &roi) {
             write(fd, slope_buffer, strlen(slope_buffer));
 
             // 发送结束字节
-            unsigned char end_byte = 0xFE;
-            write(fd, &end_byte, 1);
+            unsigned char end_byte7 = 0xFE;
+            write(fd, &end_byte7, 1);
+
+            // 发送起始字节H
+            unsigned char start_byte8 = 0x08;
+            write(fd, &start_byte8, 1);
+
+            // 发送斜率数据
+            char H_buffer[32];
+            snprintf(H_buffer, sizeof(H_buffer), "%d\n", midpoint_y);
+            write(fd, H_buffer, strlen(H_buffer));
+
+            // 发送结束字节
+            unsigned char end_byte8 = 0xFE;
+            write(fd, &end_byte8, 1);
         }
 
 
@@ -260,6 +273,17 @@ static int saveFloat(const char *file_name, float *output, int element_size)
   return 0;
 }
 
+
+//串口发送协议
+int send_serial_data(int fd, const char *data)
+{
+    if (write(fd, data, strlen(data)) < 0) {
+        perror("Failed to send serial data");
+        return -1;
+    }
+    
+    return 0;
+}
 // 定义 run_inference 函数
 void run_inference(rknn_context ctx, rknn_input_output_num io_num, rknn_tensor_attr* output_attrs, cv::Mat& img, int width, int height, int channel, float box_conf_threshold, float nms_threshold, int fd) 
 {
@@ -301,7 +325,7 @@ void run_inference(rknn_context ctx, rknn_input_output_num io_num, rknn_tensor_a
     int ret = rknn_run(ctx, NULL);
     ret = rknn_outputs_get(ctx, io_num.n_output, outputs, NULL);
     gettimeofday(&stop_time, NULL);
-    printf("Inference time: %f ms\n", (__get_us(stop_time) - __get_us(start_time)) / 1000);
+    //printf("Inference time: %f ms\n", (__get_us(stop_time) - __get_us(start_time)) / 1000);
 
     // Post-process
     detect_result_group_t detect_result_group;
@@ -313,7 +337,7 @@ void run_inference(rknn_context ctx, rknn_input_output_num io_num, rknn_tensor_a
         out_zps.push_back(output_attrs[i].zp);
     }
     post_process((int8_t*)outputs[0].buf, (int8_t*)outputs[1].buf, (int8_t*)outputs[2].buf, height, width, box_conf_threshold, nms_threshold, pads, min_scale, min_scale, out_zps, out_scales, &detect_result_group);
-
+    cv::cvtColor(img, img, cv::COLOR_RGB2BGR);
     // Draw results
     for (int i = 0; i < detect_result_group.count; i++)
     {
@@ -334,17 +358,104 @@ void run_inference(rknn_context ctx, rknn_input_output_num io_num, rknn_tensor_a
         // 打印矩形框坐标和中心坐标
         printf("Bounding Box: left=%d, top=%d, right=%d, bottom=%d\n", x1, y1, x2, y2);
         printf("Center: x=%d, y=%d\n\n", x, y);
+        printf("   ");
+    if (strcmp(det_result->name, "1") == 0) {//blue
 
-        // Send data via serial
-        serialPuts(fd, "#");
-        serialPutNumber(fd, x);
-        serialPuts(fd, ",");
-        serialPutNumber(fd, y);
-        serialPuts(fd, ";");
+        printf("1");
+        // 发送起始字节K
+            unsigned char start_byte1 = 0x01;
+            write(fd, &start_byte1, 1);
+
+            // 
+            char obj1[32];
+            snprintf(obj1, sizeof(obj1), "%d %d\n", x,y);
+            write(fd, obj1, strlen(obj1));
+
+            // 发送结束字节
+            unsigned char end_byte1 = 0xFE;
+            write(fd, &end_byte1, 1);
+    } 
+    else if (strcmp(det_result->name, "2") == 0) {
+
+        printf("2");
+        // 发送起始字节K
+            unsigned char start_byte2 = 0x02;
+            write(fd, &start_byte2, 1);
+
+            // 
+            char obj2[32];
+            snprintf(obj2, sizeof(obj2), "%d %d\n", x,y);
+            write(fd, obj2, strlen(obj2));
+
+            // 发送结束字节
+            unsigned char end_byte2 = 0xFE;
+            write(fd, &end_byte2, 1);
     }
+    else if (strcmp(det_result->name, "3") == 0) {//green
 
-    serialPuts(fd, "*");  // Over flag
-    serialPuts(fd, "\r\n");
+        printf("3");
+        // 发送起始字节K
+            unsigned char start_byte3 = 0x03;
+            write(fd, &start_byte3, 1);
+
+            // 
+            char obj3[32];
+            snprintf(obj3, sizeof(obj3), "%d %d\n", x,y);
+            write(fd, obj3, strlen(obj3));
+
+            // 发送结束字节
+            unsigned char end_byte3 = 0xFE;
+            write(fd, &end_byte3, 1);
+    } 
+    else if (strcmp(det_result->name, "4") == 0) {
+
+        printf("4");
+        // 发送起始字节K
+            unsigned char start_byte4 = 0x04;
+            write(fd, &start_byte4, 1);
+
+            // 
+            char obj4[32];
+            snprintf(obj4, sizeof(obj4), "%d %d\n", x,y);
+            write(fd, obj4, strlen(obj4));
+
+            // 发送结束字节
+            unsigned char end_byte4 = 0xFE;
+            write(fd, &end_byte4, 1);
+    }
+    else if (strcmp(det_result->name, "5") == 0) {//red
+
+        printf("5");
+        // 发送起始字节K
+            unsigned char start_byte5 = 0x05;
+            write(fd, &start_byte5, 1);
+
+            // 
+            char obj5[32];
+            snprintf(obj5, sizeof(obj5), "%d %d\n", x,y);
+            write(fd, obj5, strlen(obj5));
+
+            // 发送结束字节
+            unsigned char end_byte5 = 0xFE;
+            write(fd, &end_byte5, 1);
+    } 
+    else if (strcmp(det_result->name, "6") == 0) {
+
+        printf("6");
+        // 发送起始字节K
+            unsigned char start_byte6 = 0x06;
+            write(fd, &start_byte6, 1);
+
+            // 
+            char obj6[32];
+            snprintf(obj6, sizeof(obj6), "%d %d\n", x,y);
+            write(fd, obj6, strlen(obj6));
+
+            // 发送结束字节
+            unsigned char end_byte6 = 0xFE;
+            write(fd, &end_byte6, 1);
+    }
+    }
 
     // Release RKNN outputs
     rknn_outputs_release(ctx, io_num.n_output, outputs);
@@ -473,21 +584,21 @@ int main(int argc, char **argv)
     {
 
         
-        cap >> frame;  // 读取摄像头帧
+        cap1 >> frame;  // 读取摄像头帧
         if (frame.empty()) {
             std::cerr << "Error: Unable to capture frame\n";
             break;
         }
 
-        cap1 >> img;
+        cap >> img;
         if (img.empty())
         {
             printf("Empty frame\n");
             break;
         }
         
-        //std::vector<cv::Vec4i> lines; // 在每次循环中定义 lines 以避免未定义行为
-        //process_frame(frame, left_lower_hsv, left_upper_hsv, right_lower_hsv, right_upper_hsv, kernel, lines);
+        std::vector<cv::Vec4i> lines; // 在每次循环中定义 lines 以避免未定义行为
+        process_frame(frame, left_lower_hsv, left_upper_hsv, right_lower_hsv, right_upper_hsv, kernel, lines);
 
         run_inference(ctx, io_num, output_attrs, img, width, height, channel, box_conf_threshold, nms_threshold, fd);
 
@@ -495,7 +606,7 @@ int main(int argc, char **argv)
         // 显示结果
         cv::imshow("Lines", frame);
         cv::imshow("img", img);
-        //send_slope_data(lines, frame);
+        send_slope_data(lines, frame);
         
         if (serialDataAvail(fd)) {
             flag = serialGetchar(fd);
@@ -504,14 +615,14 @@ int main(int argc, char **argv)
 		
         if (flag == 'a') {//for line
             std::cout << "Received 'a', starting image processing...\n";
-            //if (!lines.empty()) { // 确保 lines 不为空
-                //send_slope_data(lines, frame);
+            if (!lines.empty()) { // 确保 lines 不为空
+                send_slope_data(lines, frame);
                 flag = 0;
-            //}
+            }
         }
         if (flag == 'b') {//for object
-          //detect_object(img, width, height, rknn_context ctx, &rknn_input inputs,  &output_attrs,  &io_num,  fd,  BOX_THRESH,  NMS_THRESH);
-          //run_inference(model_name, fd, 2);
+          run_inference(ctx, io_num, output_attrs, img, width, height, channel, box_conf_threshold, nms_threshold, fd);
+          
 		flag = 0;
 
         }

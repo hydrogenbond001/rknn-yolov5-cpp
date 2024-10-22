@@ -1,4 +1,5 @@
 /home/orangepi/rknn-cpp-Multithreading-main/install/rknn_yolov5_demo_Linux/./main
+/home/orangepi/rknn-cpp-Multithreading-main/install/rknn_yolov5_demo_Linux/./line
 /home/orangepi/rknn-cpp-Multithreading-main/install/rknn_yolov5_demo_Linux/lib/librknnrt.so
 /home/orangepi/rknn-cpp-Multithreading-main/install/rknn_yolov5_demo_Linux/lib/librga.so
 /home/orangepi/rknn-cpp-Multithreading-main/install/rknn_yolov5_demo_Linux/.//model/23.txt

@@ -174,6 +174,43 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+#=============================================================================
+# Target rules for targets named line
+
+# Build rule for target.
+line: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 line
+.PHONY : line
+
+# fast build rule for target.
+line/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/build
+.PHONY : line/fast
+
+src/edge.o: src/edge.cc.o
+.PHONY : src/edge.o
+
+# target to build an object file
+src/edge.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/edge.cc.o
+.PHONY : src/edge.cc.o
+
+src/edge.i: src/edge.cc.i
+.PHONY : src/edge.i
+
+# target to preprocess a source file
+src/edge.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/edge.cc.i
+.PHONY : src/edge.cc.i
+
+src/edge.s: src/edge.cc.s
+.PHONY : src/edge.s
+
+# target to generate assembly for a file
+src/edge.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/edge.cc.s
+.PHONY : src/edge.cc.s
+
 src/main.o: src/main.cc.o
 .PHONY : src/main.o
 
@@ -204,6 +241,7 @@ src/postprocess.o: src/postprocess.cc.o
 # target to build an object file
 src/postprocess.cc.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/postprocess.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/postprocess.cc.o
 .PHONY : src/postprocess.cc.o
 
 src/postprocess.i: src/postprocess.cc.i
@@ -212,6 +250,7 @@ src/postprocess.i: src/postprocess.cc.i
 # target to preprocess a source file
 src/postprocess.cc.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/postprocess.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/postprocess.cc.i
 .PHONY : src/postprocess.cc.i
 
 src/postprocess.s: src/postprocess.cc.s
@@ -220,6 +259,7 @@ src/postprocess.s: src/postprocess.cc.s
 # target to generate assembly for a file
 src/postprocess.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/postprocess.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/postprocess.cc.s
 .PHONY : src/postprocess.cc.s
 
 src/preprocess.o: src/preprocess.cc.o
@@ -228,6 +268,7 @@ src/preprocess.o: src/preprocess.cc.o
 # target to build an object file
 src/preprocess.cc.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/preprocess.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/preprocess.cc.o
 .PHONY : src/preprocess.cc.o
 
 src/preprocess.i: src/preprocess.cc.i
@@ -236,6 +277,7 @@ src/preprocess.i: src/preprocess.cc.i
 # target to preprocess a source file
 src/preprocess.cc.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/preprocess.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/preprocess.cc.i
 .PHONY : src/preprocess.cc.i
 
 src/preprocess.s: src/preprocess.cc.s
@@ -244,6 +286,7 @@ src/preprocess.s: src/preprocess.cc.s
 # target to generate assembly for a file
 src/preprocess.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/preprocess.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/preprocess.cc.s
 .PHONY : src/preprocess.cc.s
 
 src/rkYolov5s.o: src/rkYolov5s.cc.o
@@ -252,6 +295,7 @@ src/rkYolov5s.o: src/rkYolov5s.cc.o
 # target to build an object file
 src/rkYolov5s.cc.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/rkYolov5s.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/rkYolov5s.cc.o
 .PHONY : src/rkYolov5s.cc.o
 
 src/rkYolov5s.i: src/rkYolov5s.cc.i
@@ -260,6 +304,7 @@ src/rkYolov5s.i: src/rkYolov5s.cc.i
 # target to preprocess a source file
 src/rkYolov5s.cc.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/rkYolov5s.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/rkYolov5s.cc.i
 .PHONY : src/rkYolov5s.cc.i
 
 src/rkYolov5s.s: src/rkYolov5s.cc.s
@@ -268,6 +313,7 @@ src/rkYolov5s.s: src/rkYolov5s.cc.s
 # target to generate assembly for a file
 src/rkYolov5s.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/rkYolov5s.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/line.dir/build.make CMakeFiles/line.dir/src/rkYolov5s.cc.s
 .PHONY : src/rkYolov5s.cc.s
 
 # Help Target
@@ -282,7 +328,11 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... line"
 	@echo "... main"
+	@echo "... src/edge.o"
+	@echo "... src/edge.i"
+	@echo "... src/edge.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

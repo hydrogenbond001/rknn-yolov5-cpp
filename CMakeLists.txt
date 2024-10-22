@@ -3,6 +3,7 @@
 cmake_minimum_required(VERSION 3.4.1)
 
 project(main)
+project(line)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -46,9 +47,16 @@ include_directories(/usr/src/wiringOP,/wiringPi)
 include_directories( ${CMAKE_SOURCE_DIR}/include)
 
 add_executable(main
-		#src/edge.cc
+        src/main.cc
+        src/postprocess.cc
+        src/preprocess.cc
+        src/rkYolov5s.cc
+)
+
+add_executable(line
+		src/edge.cc
 		#src/new.cc
-		src/main.cc
+		#src/main.cc
         #src/pic.cc
         src/postprocess.cc
         src/preprocess.cc
@@ -61,11 +69,18 @@ target_link_libraries(main
   ${RGA_LIB}
   ${WIRINGPI_LIB}
 )
+target_link_libraries(line
+  ${RKNN_RT_LIB}
+  ${OpenCV_LIBS}
+  ${RGA_LIB}
+  ${WIRINGPI_LIB}
+)
 
 
 # install target and libraries
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/install/rknn_yolov5_demo_${CMAKE_SYSTEM_NAME})
 install(TARGETS main DESTINATION ./)
+install(TARGETS line DESTINATION ./)
 install(PROGRAMS ${RKNN_RT_LIB} DESTINATION lib)
 install(PROGRAMS ${RGA_LIB} DESTINATION lib)
 install(DIRECTORY model DESTINATION ./)

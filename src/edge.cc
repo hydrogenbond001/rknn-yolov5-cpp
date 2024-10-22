@@ -65,7 +65,7 @@ void send_slope_data(std::vector<cv::Vec4i> lines, cv::Mat &roi) {
             printf("%d %d %.0f\n", midpoint_x, midpoint_y, slope);
 
             // 发送起始字节
-            unsigned char start_byte = 0x03;
+            unsigned char start_byte = 0x07;
             write(fd, &start_byte, 1);
 
             // 发送斜率数据
@@ -152,7 +152,7 @@ void process_frame(cv::Mat frame, cv::Scalar left_lower_hsv, cv::Scalar left_upp
 
 int main() {
     // 初始化摄像头
-    cv::VideoCapture cap(0); // 0表示默认摄像头
+    cv::VideoCapture cap(2); // 0表示默认摄像头
     if (!cap.isOpened()) {
         std::cerr << "无法打开摄像头" << std::endl;
         return -1;
