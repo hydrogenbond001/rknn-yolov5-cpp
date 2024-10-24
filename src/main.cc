@@ -63,12 +63,23 @@ void serialPutFloat(const int fd, float num) {
 
 //below is line detected
 void send_slope_data(std::vector<cv::Vec4i> lines, cv::Mat &roi) {
-   // for (size_t i = 0; i <0; i++) {
-	if (!lines.empty()){
-        int x1 = lines[0][0];
-        int y1 = lines[0][1];
-        int x2 = lines[0][2];
-        int y2 = lines[0][3];
+    if (!lines.empty()) {
+        int index_of_lowest_line = 0; // 记录最下面直线的索引
+        int max_y2 = lines[0][3]; // 初始化为第一条直线的y2值
+
+        // 找到最下面的直线
+        for (size_t i = 1; i < lines.size(); i++) {
+            if (lines[i][3] > max_y2) {
+                max_y2 = lines[i][1];
+                index_of_lowest_line = i;
+            }
+        }
+
+        // 获取最下面的直线的坐标
+        int x1 = lines[index_of_lowest_line][0];
+        int y1 = lines[index_of_lowest_line][1];
+        int x2 = lines[index_of_lowest_line][2];
+        int y2 = lines[index_of_lowest_line][3];
 
         // 计算斜率
         if (x2 - x1 != 0) {
@@ -82,50 +93,30 @@ void send_slope_data(std::vector<cv::Vec4i> lines, cv::Mat &roi) {
             // 打印中点和斜率信息
             printf("%d %d %.0f\n", midpoint_x, midpoint_y, slope);
 
-            // 发送起始字节K
-            unsigned char start_byte7 = 0x07;
-            write(fd, &start_byte7, 1);
+            // 发送起始字节
+            unsigned char start_byte = 0x07;
+            write(fd, &start_byte, 1);
 
             // 发送斜率数据
             char slope_buffer[32];
-            snprintf(slope_buffer, sizeof(slope_buffer), "%.0f\n", slope);
+            char slope_buffer1[32];
+            snprintf(slope_buffer, sizeof(slope_buffer), "%.0f    %d", slope,midpoint_y);
+            //snprintf(slope_buffer, sizeof(slope_buffer), "%.0f    ", slope);
+            //snprintf(slope_buffer1, sizeof(slope_buffer1), "%d", midpoint_y);
             write(fd, slope_buffer, strlen(slope_buffer));
-
+		  //write(fd, slope_buffer1, strlen(slope_buffer1));
             // 发送结束字节
-            unsigned char end_byte7 = 0xFE;
-            write(fd, &end_byte7, 1);
-
-            // 发送起始字节H
-            unsigned char start_byte8 = 0x08;
-            write(fd, &start_byte8, 1);
-
-            // 发送斜率数据
-            char H_buffer[32];
-            snprintf(H_buffer, sizeof(H_buffer), "%d\n", midpoint_y);
-            write(fd, H_buffer, strlen(H_buffer));
-
-            // 发送结束字节
-            unsigned char end_byte8 = 0xFE;
-            write(fd, &end_byte8, 1);
+            unsigned char end_byte = 0xFE;
+            write(fd, &end_byte, 1);
         }
 
-
-        // 打印每条直线的坐标到终端
-        std::cout << "Line " << 0 << ": (" 
-                  << lines[0][0] << ", " << lines[0][1] << ") -> (" 
-                  << lines[0][2] << ", " << lines[0][3] << ")" << std::endl;
-
-   }
-}
-
-cv::VideoCapture init_camera(int camera_id) {
-    cv::VideoCapture cap(camera_id);
-    if (!cap.isOpened()) {
-        fprintf(stderr, "Error: Could not initialize camera\n");
-        exit(1);
+        // 打印最下面直线的坐标到终端
+        std::cout << "Lowest Line: (" 
+                  << lines[index_of_lowest_line][0] << ", " << lines[index_of_lowest_line][1] << ") -> (" 
+                  << lines[index_of_lowest_line][2] << ", " << lines[index_of_lowest_line][3] << ")" << std::endl;
     }
-    return cap;
 }
+
 
 void process_frame(cv::Mat frame, cv::Scalar left_lower_hsv, cv::Scalar left_upper_hsv,
                    cv::Scalar right_lower_hsv, cv::Scalar right_upper_hsv,
@@ -135,8 +126,8 @@ void process_frame(cv::Mat frame, cv::Scalar left_lower_hsv, cv::Scalar left_upp
     int width = frame.cols;
 
     // 定义感兴趣区域ROI
-    int x1 = width / 4;
-    int y1 = height / 3.5;
+    int x1 = width / 3;
+    int y1 = height / 8;
     int x2 = 3 * width / 4;
     int y2 = 3 * height / 4;
     cv::Mat roi = frame(cv::Rect(x1, y1, x2 - x1, y2 - y1));
@@ -169,15 +160,15 @@ void process_frame(cv::Mat frame, cv::Scalar left_lower_hsv, cv::Scalar left_upp
 
     // 检测边缘
     cv::Mat edges;
-    cv::Canny(roi, edges, 50, 150);
+    cv::Canny(roi, edges, 90, 150);
 
     // 霍夫变换检测直线
-    cv::HoughLinesP(edges, lines, 1, CV_PI / 720, 130, 150, 200);
+    cv::HoughLinesP(edges, lines, 1, CV_PI / 720, 130, 250, 500);
     // 在图像上绘制直线(size_t i = 0; i < lines.size(); i++)
     for (size_t i = 0; i <lines.size(); i++) {
         cv::line(roi, cv::Point(lines[i][0], lines[i][1]), cv::Point(lines[i][2], lines[i][3]), cv::Scalar(0, 255, 0), 2);
     }
-    cv::imshow("Edges", edges);
+    //cv::imshow("Edges", edges);
     //cv::imshow("Combined", combined_result);
 }
 
@@ -336,6 +327,8 @@ void run_inference(rknn_context ctx, rknn_input_output_num io_num, rknn_tensor_a
         out_scales.push_back(output_attrs[i].scale);
         out_zps.push_back(output_attrs[i].zp);
     }
+
+    
     post_process((int8_t*)outputs[0].buf, (int8_t*)outputs[1].buf, (int8_t*)outputs[2].buf, height, width, box_conf_threshold, nms_threshold, pads, min_scale, min_scale, out_zps, out_scales, &detect_result_group);
     cv::cvtColor(img, img, cv::COLOR_RGB2BGR);
     // Draw results
@@ -368,92 +361,98 @@ void run_inference(rknn_context ctx, rknn_input_output_num io_num, rknn_tensor_a
 
             // 
             char obj1[32];
-            snprintf(obj1, sizeof(obj1), "%d %d\n", x,y);
-            write(fd, obj1, strlen(obj1));
+            snprintf(obj1, sizeof(obj1), "%d   %d\n", x,y);
+            write(fd, obj1, strlen(obj1));usleep(1000);
 
             // 发送结束字节
             unsigned char end_byte1 = 0xFE;
             write(fd, &end_byte1, 1);
+            usleep(1000);
     } 
     else if (strcmp(det_result->name, "2") == 0) {
 
         printf("2");
         // 发送起始字节K
             unsigned char start_byte2 = 0x02;
-            write(fd, &start_byte2, 1);
+            write(fd, &start_byte2, 1);usleep(1000);
 
             // 
             char obj2[32];
-            snprintf(obj2, sizeof(obj2), "%d %d\n", x,y);
+            snprintf(obj2, sizeof(obj2), "%d   %d\n", x,y);
             write(fd, obj2, strlen(obj2));
 
             // 发送结束字节
             unsigned char end_byte2 = 0xFE;
             write(fd, &end_byte2, 1);
+            usleep(1000);
     }
     else if (strcmp(det_result->name, "3") == 0) {//green
 
         printf("3");
         // 发送起始字节K
             unsigned char start_byte3 = 0x03;
-            write(fd, &start_byte3, 1);
+            write(fd, &start_byte3, 1);usleep(1000);
 
             // 
             char obj3[32];
-            snprintf(obj3, sizeof(obj3), "%d %d\n", x,y);
+            snprintf(obj3, sizeof(obj3), "%d   %d\n", x,y);
             write(fd, obj3, strlen(obj3));
 
             // 发送结束字节
             unsigned char end_byte3 = 0xFE;
             write(fd, &end_byte3, 1);
+            usleep(1000);
     } 
     else if (strcmp(det_result->name, "4") == 0) {
 
         printf("4");
         // 发送起始字节K
             unsigned char start_byte4 = 0x04;
-            write(fd, &start_byte4, 1);
+            write(fd, &start_byte4, 1);usleep(1000);
 
             // 
             char obj4[32];
-            snprintf(obj4, sizeof(obj4), "%d %d\n", x,y);
+            snprintf(obj4, sizeof(obj4), "%d   %d\n", x,y);
             write(fd, obj4, strlen(obj4));
 
             // 发送结束字节
             unsigned char end_byte4 = 0xFE;
             write(fd, &end_byte4, 1);
+            usleep(1000);
     }
     else if (strcmp(det_result->name, "5") == 0) {//red
 
         printf("5");
         // 发送起始字节K
             unsigned char start_byte5 = 0x05;
-            write(fd, &start_byte5, 1);
+            write(fd, &start_byte5, 1);usleep(1000);
 
             // 
             char obj5[32];
-            snprintf(obj5, sizeof(obj5), "%d %d\n", x,y);
+            snprintf(obj5, sizeof(obj5), "%d   %d\n", x,y);
             write(fd, obj5, strlen(obj5));
 
             // 发送结束字节
             unsigned char end_byte5 = 0xFE;
             write(fd, &end_byte5, 1);
+            usleep(1000);
     } 
     else if (strcmp(det_result->name, "6") == 0) {
 
         printf("6");
         // 发送起始字节K
             unsigned char start_byte6 = 0x06;
-            write(fd, &start_byte6, 1);
+            write(fd, &start_byte6, 1);usleep(1000);
 
             // 
             char obj6[32];
-            snprintf(obj6, sizeof(obj6), "%d %d\n", x,y);
-            write(fd, obj6, strlen(obj6));
+            snprintf(obj6, sizeof(obj6), "%d   %d\n", x,y);
+            write(fd, obj6, strlen(obj6));usleep(1000);
 
             // 发送结束字节
             unsigned char end_byte6 = 0xFE;
             write(fd, &end_byte6, 1);
+            usleep(1000);
     }
     }
 
@@ -481,7 +480,7 @@ int main(int argc, char **argv)
     struct timeval start_time, stop_time;
     
 
-    char *model_name = "./model/RK3588/yolov5s.rknn";
+    const char *model_name = "/home/orangepi/rknn-cpp-Multithreading-main/model/RK3588/yolov5s.rknn";
 
     printf("Loading model...\n");
     int model_data_size = 0;
@@ -601,15 +600,15 @@ int main(int argc, char **argv)
         process_frame(frame, left_lower_hsv, left_upper_hsv, right_lower_hsv, right_upper_hsv, kernel, lines);
 
         run_inference(ctx, io_num, output_attrs, img, width, height, channel, box_conf_threshold, nms_threshold, fd);
-
+		//usleep(100000);
         
         // 显示结果
         cv::imshow("Lines", frame);
         cv::imshow("img", img);
         send_slope_data(lines, frame);
-        
+        usleep(10000);
         if (serialDataAvail(fd)) {
-            flag = serialGetchar(fd);
+            //flag = serialGetchar(fd);
         }
 		//flag='b';
 		

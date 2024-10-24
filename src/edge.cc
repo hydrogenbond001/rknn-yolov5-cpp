@@ -70,12 +70,13 @@ void send_slope_data(std::vector<cv::Vec4i> lines, cv::Mat &roi) {
 
             // 发送斜率数据
             char slope_buffer[32];
-            snprintf(slope_buffer, sizeof(slope_buffer), "%.0f\n", slope);
+            snprintf(slope_buffer, sizeof(slope_buffer), "%.0f  %d\n", slope,midpoint_y);
             write(fd, slope_buffer, strlen(slope_buffer));
 
             // 发送结束字节
             unsigned char end_byte = 0xFE;
             write(fd, &end_byte, 1);
+            
         }
 
 
