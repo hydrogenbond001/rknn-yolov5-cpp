@@ -1,6 +1,0 @@
-/root/桌面/video_detect/install/rknn_yolov5_demo_Linux/./main
-/root/桌面/video_detect/install/rknn_yolov5_demo_Linux/lib/librknnrt.so
-/root/桌面/video_detect/install/rknn_yolov5_demo_Linux/lib/librga.so
-/root/桌面/video_detect/install/rknn_yolov5_demo_Linux/.//model/23.txt
-/root/桌面/video_detect/install/rknn_yolov5_demo_Linux/.//model/RK3588/yolov5s.rknn
-/root/桌面/video_detect/install/rknn_yolov5_demo_Linux/.//model/coco_80_labels_list.txt
