@@ -1,6 +1,7 @@
 # 简介
 * 此仓库为c++实现，较于python效率更高，环境简单
 * 本程序在板端执行进行编译，编译完就可以直接运行，无需交叉编译和繁琐的文件互传
+* 推荐去[这里](https://github.com/hydrogenbond001/atom_rk3568_yolov5)可以在两个平台使用
 # 使用说明
   直接运行我的程序是不行的，我的程序用了两个摄像头同时还用了串口，需要对cmake有点了解，有空再整理
   注意要在CMakeLists.txt里把add_executable(main ...）改掉，new.cc是视频推理部分，pic是图片推理。
